@@ -54,7 +54,7 @@ while player.health >= 0 and opponent.health >= 0:
     print('\n')
     if response == '1':
         player.attack(opponent)
-        player.special_cd += 1
+        # player.special_cd += 1
     elif response == '2':
         # if player.check_cd(player.special_cd) == True:
         player.use_special(opponent)
