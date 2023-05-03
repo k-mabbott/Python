@@ -16,7 +16,7 @@ class Ninja(Fighter):
             chance = 0
             print(f"{self.name} threw {chance} Shuriken ")
             target.defend(self.strength * chance)
-        elif chance < 8:
+        elif chance <= 8:
             chance = 1
             print(f"{self.name} threw {chance} Shuriken ")
             target.defend(self.strength * chance)
