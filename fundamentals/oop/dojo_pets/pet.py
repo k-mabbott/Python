@@ -44,7 +44,7 @@ class Cat(Pet):
 
     def __repr__(self):
         return f"Name {self.name} Type {self.type} Tricks {self.tricks} Health {self.health} Energy {self.energy} Couches destroyed: {self.couches_destroyed}"
-    
+
 
 
 
