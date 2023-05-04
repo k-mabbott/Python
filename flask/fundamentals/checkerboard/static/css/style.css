@@ -1,0 +1,32 @@
+
+h1{
+    text-align: center;
+}
+
+main{
+    border: 2px solid black;
+    width: fit-content;
+    height: fit-content;
+    margin: 0 auto;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.color1, .color2{
+    background-color: red;
+    width:50px;
+    height:50px;
+    border: 1px solid black;
+}
+
+.color1{
+    background-color: aqua;
+}
+.color2{
+    background-color: rebeccapurple;
+}
+
+.row{
+    display: flex;
+    width: auto;
+}
