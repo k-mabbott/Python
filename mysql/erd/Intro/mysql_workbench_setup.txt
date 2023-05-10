@@ -1,0 +1,24 @@
+USE names;
+
+
+SELECT * FROM names;
+
+
+SELECT name FROM names;
+
+
+INSERT INTO names (name, created_at, updated_at) 
+VALUES ('Kyle Mabbott', now(), now() );
+
+
+INSERT INTO names (name, created_at, updated_at) 
+VALUES ('Jane Doe', now(), now() ), ('John Doe', now(), now());
+
+
+UPDATE names 
+SET name = 'John Buck'
+WHERE id = 3;  
+
+
+DELETE FROM names 
+WHERE id = 2

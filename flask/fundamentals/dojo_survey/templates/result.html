@@ -9,6 +9,15 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/css/style.css') }}">
 </head>
 <body>
-    
+    <div class="d-flex mx-auto text-center flex-column gap-3 bg-secondary rounded mt-5 p-4 w-50">
+        <h3 class="text-warning " >Submitted info</h3>
+        <p>Name: {{session.name}} </p>
+        <p>Location: {{session.location}}</p>
+        <p>Favorite Language: {{session.language}}</p>
+        <p>Course: {{session.course}}</p>
+        <p>Front or Back end? {{choice}}</p>
+        <p>Comments: {{session.comments}}</p>
+        <a href="/" class="btn btn-info m-2" >Go Back</a>
+    </div>
 </body>
 </html>

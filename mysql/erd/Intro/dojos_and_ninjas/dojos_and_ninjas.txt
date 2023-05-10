@@ -1,0 +1,62 @@
+USE dojos_and_ninjas_schema;
+
+1)Query: Create 3 new dojos
+
+INSERT INTO dojos (name)
+VALUES ('This one'), ('That one'), ('Another one');
+
+2)Query: Delete the 3 dojos you just created
+
+DELETE FROM dojos
+WHERE id > -1
+
+3)Query: Create 3 more dojos
+
+INSERT INTO dojos (name)
+VALUES ('Try this again'), ('One more time'), ('Again, again');
+
+4)Query: Create 3 ninjas that belong to the first dojo
+
+INSERT INTO ninjas (dojo_id, first_name, last_name, age)
+VALUES (10, 'Brad', 'Bradley', 29), (10, 'Chad', 'Chadley', 30), (10, 'Thad', 'Thadley', 30)
+
+5)Query: Create 3 ninjas that belong to the second dojo
+
+INSERT INTO ninjas (dojo_id, first_name, last_name, age)
+VALUES (11, 'Tom', 'Thomas', 31), (11, 'Tim', 'Timas', 28), (11, 'Kim', 'Kimas', 2
+
+6)Query: Create 3 ninjas that belong to the third dojo
+
+INSERT INTO ninjas (dojo_id, first_name, last_name, age)
+VALUES (12, 'Mike', 'Micheal', 29), (12, 'Sam', 'Samantha', 33), (12, 'Pip', 'Pipelly', 22)
+
+7)Query: Retrieve all the ninjas from the first dojo
+
+SELECT * FROM ninjas 
+WHERE dojo_id = 10
+
+8)Query: Retrieve all the ninjas from the last dojo
+
+SELECT * FROM ninjas 
+WHERE dojo_id = 12
+
+9)Query: Retrieve the last ninja's dojo
+
+SELECT dojo_id FROM ninjas 
+ORDER BY id DESC
+LIMIT 1;
+
+10)Query: Use a JOIN to retrieve the ninja with id 6 as well as the data from its dojo. Be sure to do this in one query using a join statement.
+
+SELECT * FROM ninjas
+JOIN dojos ON dojos.id = ninjas.dojo_id
+WHERE ninjas.id = 6
+
+11)Query: Use a JOIN to retrieve all the ninjas as well as that ninja's dojo, note, you will see repeated data on dojos as a dojo can have many ninjas!
+
+SELECT * FROM ninjas
+JOIN dojos ON dojos.id = ninjas.dojo_id
+
+
+
+
