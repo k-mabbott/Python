@@ -40,18 +40,36 @@ class Friend:
     # --------------------- GET ONE
     @classmethod
     def get_one(cls, id):
-        query = """SELECT * FROM friends WHERE id = %(id)s"""
+        query = """SELECT * FROM friends WHERE id = %(id)s;"""
         results = connectToMySQL('first_flask').query_db(query, {'id': id} )
         # one_friend = results[0]
         return cls(results[0])
     # --------------------- GET ALL
-    @classmethod
-    def get_al(cls):
-        query = "SELECT * FROM friends;"
-        results = connectToMySQL('first_flask').query_db(query)
-        all_friends = []
+    # @classmethod
+    # def get_all(cls):
+    #     query = "SELECT * FROM friends;"
+    #     results = connectToMySQL('first_flask').query_db(query)
+    #     all_friends = []
 
         for row in results:
             # make friend object and add to list
             all_friends.append(cls(row))
         return all_friends
+    
+    @classmethod
+    def update(data):
+        query = """ UPDATE friends
+                SET first_name = %(first_name)s, last_name = %(last_name)s, email = %(email)s 
+                WHERE id = %(id)s;
+                """
+        results = connectToMySQL('first_flask').query_db(query, data)
+        return results
+    
+
+    @classmethod
+    def delete(id):
+        query = """ DELETE FROM friends
+                    WHERE id = %(id)s;
+                """
+        results = connectToMySQL('first_flask').query_db(query, {'id': id})
+        return results

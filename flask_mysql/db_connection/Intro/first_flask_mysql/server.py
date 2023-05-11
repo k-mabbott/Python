@@ -33,7 +33,15 @@ def create_friend():
     # Don't forget to redirect after saving to the database.
     return redirect('/')
 
+@app.route("/friends/update", methods=["POST"])
+def update():
+    Friend.update(request.form)
+    return redirect('/')
 
+@app.route("/friends/delete/<int:friend_id>")
+def delete_friend(friend_id):
+    Friend.delete(friend_id)
+    return redirect('/')
 
 
 
