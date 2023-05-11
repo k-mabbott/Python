@@ -25,7 +25,6 @@ def show_one_user(id):
 # --------------------------------ADD USER / Redirect
 @app.route('/users/create', methods=['POST'])
 def create_user():
-
     id = User.save(request.form)
     print(id)
     return redirect(f'/user/{id}')
