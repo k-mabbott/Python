@@ -7,6 +7,7 @@ from flask_app.models.dojo_model import Dojo
 
 # --------------------------------------------HOME PAGE / CREATE
 
+@app.route('/')
 @app.route('/dojos')
 def show_all_dojos():
 
