@@ -9,7 +9,7 @@ class Dojo:
         self.name = data['name']
         self.updated_at = data['updated_at']
         self.created_at = data['created_at']
-
+# --------------------------------------------SAVE
     @classmethod
     def save(cls, data):
         query = """
@@ -17,6 +17,7 @@ class Dojo:
             VALUES (%(name)s);
             """
         return connectToMySQL(DB).query_db(query, data)
+# -------------------------------------------- GET ALL
 
     @classmethod
     def get_all_dojos(cls):
@@ -27,6 +28,7 @@ class Dojo:
             dojos.append(cls(one_dojo))
         print(dojos)
         return dojos
+# --------------------------------------------GET ONE W/ ALL NINJAS
 
     @classmethod
     def get_all_ninjas(cls, id):
