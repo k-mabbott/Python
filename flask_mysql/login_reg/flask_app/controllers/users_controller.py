@@ -10,7 +10,7 @@ bcrypt = Bcrypt(app)
 @app.route('/')
 def home():
     if 'user_id' in session:
-        redirect('/dashboard')
+        return redirect('/dashboard')
     return render_template('index.html')
 
 
