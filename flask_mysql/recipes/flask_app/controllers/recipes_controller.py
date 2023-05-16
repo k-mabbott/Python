@@ -11,12 +11,10 @@ import datetime
 def dashboard():
     if 'user_id' not in session:
         return redirect('/')
-    #  ------------------------Not really needed
     data = {
         'id': session['user_id']
     }
     logged_user = User.get_by_id(data)
-    # --------------------------- End not needed
     all_recipes = Recipe.get_all_with_name()
     print(all_recipes)
     return render_template('dashboard.html', logged_user=logged_user, all_recipes=all_recipes)
