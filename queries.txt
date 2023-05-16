@@ -1,0 +1,14 @@
+SELECT r.*, u.first_name FROM recipes r JOIN users u ON r.user_id = u.id;
+
+SELECT * FROM recipes;
+
+INSERT INTO recipes (user_id, name, description, instructions, date_cooked, under)
+VALUES (1,'Test', 'This is a test', 'None needed this is just a test', 2023-05-14, 'yes' );
+
+SELECT r.*, u.first_name FROM recipes r 
+JOIN users u ON r.user_id = u.id;
+
+
+SELECT r.*, u.first_name FROM recipes r 
+JOIN users u ON r.user_id = u.id
+WHERE r.id = 1;

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log in / Register</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/css/style.css') }}">
+    
+</head>
+<body class="container">
+    <header class="d-flex gap-2 justify-content-between my-2 align-items-center">
+        <h1>Welcome, {{session['user_fname']}} </h1>
+        <p>
+            <a href="/" class="btn btn-secondary mx-5 btn-hover">Back to Recipes</a>
+            <a href="/user/logout" class="btn btn-danger"> Logout</a>
+        </p>
+    </header>
+    <h2 class="text-decoration-underline">Add New Recipe:</h2>
+    <!-- <h1 class="text-center my-5 text-decoration-underline">Welcome {{session['fname']}} </h1> -->
+    <form action="/recipe/add" method="post" class="d-flex flex-column gap-1">
+        <div class="d-flex gap-3">
+            <div class="d-flex flex-column gap-3 col-6 p-3">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" value="{{request.form['name']}}">
+                {% for message in get_flashed_messages(category_filter=['name']) %}
+                <p class="text-warning">{{message}}</p>
+                {% endfor %}
+                <label for="description">Description:</label>
+                <input type="text" id="description" name="description">
+                {% for message in get_flashed_messages(category_filter=['description']) %}
+                <p class="text-warning">{{message}}</p>
+                {% endfor %}
+                <label for="instructions">Instructions:</label>
+                <!-- <input type="text" id="instructions" name="instructions"> -->
+                <textarea name="instructions" id="instructions" cols="10" rows="8"></textarea>
+                {% for message in get_flashed_messages(category_filter=['instructions']) %}
+                <p class="text-warning">{{message}}</p>
+                {% endfor %}
+            </div>
+            <div class="d-flex flex-column gap-3 col-6 p-3">
+                <label for="date_cooked">Date Cooked/Made:</label>
+                <input type="date" id="date_cooked" name="date_cooked">
+                {% for message in get_flashed_messages(category_filter=['date']) %}
+                <p class="text-warning">{{message}}</p>
+                {% endfor %}
+                <div>
+                    <p>Under 30 minutes?</p>
+                    <label for="yes">Yes:</label>
+                    <input type="radio" id="yes" name="under" value="yes">
+                    <label for="no">No:</label>
+                    <input type="radio" name="under" id="no" value="no">
+                    {% for message in get_flashed_messages(category_filter=['under']) %}
+                    <p class="text-warning">{{message}}</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-warning w-25 align-self-end">Create</button>
+    </form>
+
+
+    <!-- <img src="{{ url_for('static', filename='/images/my_img.png') }}"> -->
+    <script type="text/javascript" src="{{ url_for('static', filename='/js/script.js') }}"></script>
+</body>
+</html>

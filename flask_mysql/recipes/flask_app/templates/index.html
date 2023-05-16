@@ -10,13 +10,13 @@
     
 </head>
 <body>
-    <h1 class="text-center">Hello</h1>
+    <h1 class="text-center my-5 text-decoration-underline">Hello</h1>
     <div class="container d-flex gap-4">
         <div class="col-6 bg-secondary text-light p-4 rounded">
             <h2 class="text-center text-dark mb-4 text-decoration-underline">Register</h2>
             <form action="/user/register" method="post">
                 {% for message in get_flashed_messages(category_filter=['reg']) %}
-                <p>{{message}}</p>
+                <p class="text-warning">{{message}}</p>
                 {% endfor %}
                 <p class="d-flex justify-content-between">
                     <label for="first_name">First name:</label>
@@ -83,7 +83,6 @@
     </div>
 
 
-    <form action="/log"></form>
     <!-- <img src="{{ url_for('static', filename='/images/my_img.png') }}"> -->
     <script type="text/javascript" src="{{ url_for('static', filename='/js/script.js') }}"></script>
 </body>

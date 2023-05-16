@@ -13,8 +13,6 @@ class User:
         self.id = data['id']
         self.first_name = data['first_name']
         self.last_name = data['last_name']
-        self.email = data['email']
-        self.password = data['password']
         self.updated_at = data['updated_at']
         self.created_at = data['created_at']
     
@@ -22,8 +20,8 @@ class User:
     @classmethod
     def save(cls,data):
         query = """
-                INSERT INTO users (first_name, last_name, email, password ) 
-                VALUES (%(first_name)s, %(last_name)s, %(email)s, %(password)s);
+                INSERT INTO users (first_name, last_name) 
+                VALUES (%(first_name)s, %(last_name)s);
                 """
         return connectToMySQL(DB).query_db(query, data)
     
@@ -38,16 +36,21 @@ class User:
             return cls(results[0])
         return False
     
-# ------------------------------------------------ GET BY EMAIL
+# ------------------------------------------------ GET BY ID
     @classmethod
-    def get_by_email(cls, data):
+    def get_all(cls):
         query = """
-                SELECT * FROM users WHERE email = %(email)s;
+                SELECT * FROM users;
                 """
-        results = connectToMySQL(DB).query_db(query, data)
+        results = connectToMySQL(DB).query_db(query)
         if results:
-            return cls(results[0])
+            all_users = []
+            for row in results:
+                one_user = cls(row)
+                all_users.append(one_user)
+            return all_users
         return False
+
 
 
 # ------------------------------------------------ VALIDATION CHECK
@@ -74,38 +77,7 @@ class User:
         elif not ALPHA.match(data['last_name']):
             is_valid = False
             flash('Invalid Last Name!  * must be letters only', 'last_name')
-        # -----------------------------------------Email
-        if len(data['email']) < 1 :
-            is_valid = False
-            flash('Invalid Email! * must have email', 'email')
-        elif not EMAIL_REGEX.match(data['email']):
-            is_valid = False
-            flash('Invalid Email Address! * check format', 'email')
-        else: 
-            user_data = {
-                'email': data['email']
-            }
-            potential_user = User.get_by_email(user_data)
-            if potential_user:
-                is_valid = False
-                flash('Email already exists')
 
-        # -----------------------------------------Password
-        if len(data['password']) < 1:
-            is_valid = False
-            flash('Password Required! \n*must be atleast 8 characters long', 'password')
-        elif len(data['password']) < 8:
-            is_valid = False
-            flash('Invalid Password! \n*must be atleast 8 characters long', 'password')
-        elif re.search('[0-9]',data['password']) is None:
-            is_valid = False
-            flash('Invalid Password! \n*must have one number in it', 'password')
-        elif re.search('[A-Z]',data['password']) is None:
-            is_valid = False
-            flash('Invalid Password! \n*must have one capital letter in it', 'password')
-        elif data['password'] != data['confirm_password']:
-            flash('password must match', 'confirm_password')
-            is_valid = False
 
         return is_valid
 

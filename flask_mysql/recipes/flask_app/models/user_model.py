@@ -88,7 +88,7 @@ class User:
             potential_user = User.get_by_email(user_data)
             if potential_user:
                 is_valid = False
-                flash('Email already exists')
+                flash('Email Already Exists!', 'reg')
 
         # -----------------------------------------Password
         if len(data['password']) < 1:

@@ -10,19 +10,9 @@ bcrypt = Bcrypt(app)
 @app.route('/')
 def home():
     if 'user_id' in session:
-        return redirect('/dashboard')
+        return redirect('/recipes')
     return render_template('index.html')
-# ----------------------------------------------------- DASHBOARD
 
-@app.route('/dashboard')
-def dashboard():
-    if 'user_id' not in session:
-        return redirect('/')
-    data = {
-        'id': session['user_id']
-    }
-    logged_user = User.get_by_id(data)
-    return render_template('dashboard.html', logged_user=logged_user)
 # ----------------------------------------------------- LOGOUT
 
 @app.route('/user/logout')
@@ -48,7 +38,7 @@ def log_user():
         return redirect('/')
     session['user_id'] = potential_user.id
     session['user_fname'] = potential_user.first_name
-    return redirect('/dashboard')
+    return redirect('/recipes')
 
 # ----------------------------------------------------- REGISTER / REDIRECT
 @app.route('/user/register', methods=['POST'])
@@ -61,7 +51,6 @@ def reg_user():
     # put the pw_hash into the data dictionary
     data = {
         **request.form,
-        # "username": request.form['username'],
         "password" : pw_hash,
         'confirm_password': pw_hash
     }
@@ -71,5 +60,5 @@ def reg_user():
     session['user_id'] = logged_user_id
     session['user_fname'] = request.form['first_name']
     
-    return redirect("/dashboard")
+    return redirect("/recipes")
 

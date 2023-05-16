@@ -32,7 +32,7 @@ class Dojo:
 
     @classmethod
     def get_all_ninjas(cls, id):
-        query = "SELECT * FROM dojos JOIN ninjas ON dojos.id = ninjas.dojo_id WHERE dojos.id = %(id)s;"
+        query = "SELECT * FROM dojos LEFT JOIN ninjas ON dojos.id = ninjas.dojo_id WHERE dojos.id = %(id)s;"
         dojos_ninjas_db = connectToMySQL(DB).query_db(query, id)
         print(dojos_ninjas_db)
         if dojos_ninjas_db:
@@ -40,6 +40,11 @@ class Dojo:
             print('\n\n\n', dojo_instance)
             ninjas_list = []
             for one_row in dojos_ninjas_db:
+                print('**',one_row,'One Row*** \n\n\n')
+                # ------------------------------------------Makes it not display None 
+                if one_row['ninjas.id'] == None: #----------------------------------|
+                    return dojo_instance #------------------------------------------|
+                # ------------------------------------------Makes it not display None
                 ninja_data = {
                     'id': one_row['ninjas.id'],
                     'dojo_id': one_row['dojo_id'],
