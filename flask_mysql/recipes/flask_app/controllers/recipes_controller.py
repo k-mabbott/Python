@@ -36,6 +36,8 @@ def edit_recipe(id):
 # ----------------------------------------------------- EDIT PAGE/REDIRECT
 @app.route('/recipe/update/<int:id>', methods=['POST'])
 def update_recipe(id):
+    if 'user_id' not in session:
+        return redirect('/')
     data = {
         **request.form,
         'id': id
@@ -66,6 +68,8 @@ def new_recipe():
 # ----------------------------------------------------- NEW PAGE / REDIRECT
 @app.route('/recipe/add', methods=['POST'])
 def add_recipe():
+    if 'user_id' not in session:
+        return redirect('/')
     print('---------------\n\n\n', request.form)
     if not Recipe.validation(request.form):
         print(request.form['name'])

@@ -44,8 +44,6 @@ def log_user():
 # ----------------------------------------------------- REGISTER / REDIRECT
 @app.route('/user/register', methods=['POST'])
 def reg_user():
-    if not User.validation(request.form):
-        return redirect('/')
     # create the hash
     pw_hash = bcrypt.generate_password_hash(request.form['password'])
     print(pw_hash)
