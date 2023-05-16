@@ -35,18 +35,10 @@
                     <input type="date" id="date_cooked" name="date_cooked" value="{{recipe.date_cooked}}">
                     <div>
                         <p>Under 30 minutes?</p>
-                        {% if recipe.under == 'yes' %}
                         <label for="yes">Yes:</label>
-                        <input type="radio" id="yes" name="under" value="yes" checked>
+                        <input type="radio" id="yes" name="under" value="yes" {% if recipe.under == 'yes' %} checked {% endif %}>
                         <label for="no">No:</label>
-                        <input type="radio" name="under" id="no" value="no">
-                        {% endif %}
-                        {% if recipe.under == 'no' %}
-                        <label for="yes">Yes:</label>
-                        <input type="radio" id="yes" name="under" value="yes">
-                        <label for="no">No:</label>
-                        <input type="radio" name="under" id="no" value="no" checked>
-                        {% endif %}
+                        <input type="radio" name="under" id="no" value="no" {% if recipe.under == 'no' %} checked {% endif %}>
                     </div>
                 </div>
             </div>

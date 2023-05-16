@@ -125,7 +125,7 @@ class Recipe:
             is_valid = False
             flash('Invalid Instructions! * must be 3 characters long', 'instructions')
         # ----------------------------------------- Date
-        if 'date' not in data:
+        if len(data['date_cooked']) < 1:
             is_valid = False
             flash('Date Required!', 'date')
         # ----------------------------------------- Under / Radio buttons

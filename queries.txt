@@ -12,3 +12,22 @@ JOIN users u ON r.user_id = u.id;
 SELECT r.*, u.first_name FROM recipes r 
 JOIN users u ON r.user_id = u.id
 WHERE r.id = 1;
+
+SELECT * FROM friendships f 
+JOIN users u ON u.id = f.user_id 
+JOIN users ON friend_id = users.id;
+
+SELECT * FROM friendships f 
+JOIN users u ON u.id = f.user_id 
+JOIN friendships ON friend_id = users.id;
+
+SELECT * FROM friendships;
+
+SELECT a.first_name as first_name1, b.first_name as first_name2
+FROM users a, users b WHERE a.id != b.id
+ORDER BY a.first_name, b.first_name
+;
+
+
+
+

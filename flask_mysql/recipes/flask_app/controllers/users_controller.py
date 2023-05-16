@@ -18,7 +18,7 @@ def home():
 @app.route('/user/logout')
 def logout():
     del session['user_id']
-    del session['first_name']
+    del session['user_fname']
     return redirect('/')
 # ----------------------------------------------------- LOGIN / REDIRECT
 
@@ -44,6 +44,8 @@ def log_user():
 # ----------------------------------------------------- REGISTER / REDIRECT
 @app.route('/user/register', methods=['POST'])
 def reg_user():
+    if not User.validation(request.form):
+        return redirect('/')
     # create the hash
     pw_hash = bcrypt.generate_password_hash(request.form['password'])
     print(pw_hash)
