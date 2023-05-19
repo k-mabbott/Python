@@ -36,6 +36,7 @@ class MySQLConnection:
             except Exception as e:
                 # if the query fails the method will return FALSE
                 print("Something went wrong", e)
+                print("\n"*5 + "------------- YO ! ------------>")
                 return False
             finally:
                 # close the connection

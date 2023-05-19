@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/css/style.css') }}">
+    <title>Book</title>
+</head>
+<body class="container">
+    <main class="d-flex container">
+        <section class="col-6">
+            <h1>Title: {{book.title}}</h1>
+            <div>
+                <h4>Favorited By:</h4>
+                {% for author in book.favs %}
+                    <p>{{author.name}}</p>
+                {% endfor %}
+            </div>
+        </section>
+        <section class="col-6">
+            <h1>Add Book to Favorites</h1>
+            <form action="/create_favorite_book/{{book.id}}", method="post">
+                <select name="author_id" id="author_id">
+                {% for author in all_authors %}
+                    <option value="{{author.id}}">{{author.name}}</option>
+                {% endfor %}
+                </select>
+    
+                <button type="submit">Add</button>
+            </form>
+        </section>
+    </main>
+    <a href="/">Home</a>
+</body>
+</html>
