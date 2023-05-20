@@ -26,6 +26,7 @@ def save_favorite_author(id):
         'author_id': id
         
     }
+    
     if not Favorite.validation(data):
         return redirect('/authors')
     Favorite.save(data)
