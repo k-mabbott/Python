@@ -23,9 +23,7 @@ def dashboard():
         'id': session['user_id']
     }
     
-    return render_template('dashboard.html', logged_user=User.get_by_id(data), 
-        all_users = User.get_all(data), all_messages=Message.get_all_for_user(data), 
-        num_of_sent=Message.num_of_sent(data))
+    return render_template('dashboard.html', logged_user=User.get_by_id(data),all_users = User.get_all(data), all_messages=Message.get_all_for_user(data), num_of_sent=Message.num_of_sent(data))
 # ----------------------------------------------------- LOGOUT
 
 @app.route('/user/logout')

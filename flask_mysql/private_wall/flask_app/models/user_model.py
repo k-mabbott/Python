@@ -54,7 +54,7 @@ class User:
     @classmethod
     def get_all(cls, data):
         query = """
-                SELECT * FROM users OREDER BY users.first_name WHERE id != %(id)s;
+                SELECT * FROM users WHERE id != %(id)s  ORDER BY users.first_name;
                 """
         results = connectToMySQL(DB).query_db(query, data)
         if results:
