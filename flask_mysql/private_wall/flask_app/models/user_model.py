@@ -1,6 +1,7 @@
 from flask_app.config.mysqlconnection import connectToMySQL
 from flask import flash
 from flask_app import DB
+from flask_app.models import message_model
 import re
 
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
@@ -34,6 +35,7 @@ class User:
                 SELECT * FROM users WHERE id = %(id)s;
                 """
         results = connectToMySQL(DB).query_db(query, data)
+        print('results!!!! ---', results)
         if results:
             return cls(results[0])
         return False
@@ -48,7 +50,21 @@ class User:
         if results:
             return cls(results[0])
         return False
-
+# ------------------------------------------------ GET ALL
+    @classmethod
+    def get_all(cls, data):
+        query = """
+                SELECT * FROM users OREDER BY users.first_name WHERE id != %(id)s;
+                """
+        results = connectToMySQL(DB).query_db(query, data)
+        if results:
+            all_users = []
+            for row in results:
+                user = cls(row)
+                all_users.append(user)
+            return all_users
+        return False
+    
 
 # ------------------------------------------------ VALIDATION CHECK
     @staticmethod

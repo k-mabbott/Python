@@ -2,6 +2,7 @@
 from flask_app import app
 from flask import render_template,redirect,request,session,flash
 from flask_app.models.user_model import User
+from flask_app.models.message_model import Message
 from flask_bcrypt import Bcrypt
 
 bcrypt = Bcrypt(app)
@@ -21,8 +22,10 @@ def dashboard():
     data = {
         'id': session['user_id']
     }
-    logged_user = User.get_by_id(data)
-    return render_template('dashboard.html', logged_user=logged_user)
+    
+    return render_template('dashboard.html', logged_user=User.get_by_id(data), 
+        all_users = User.get_all(data), all_messages=Message.get_all_for_user(data), 
+        num_of_sent=Message.num_of_sent(data))
 # ----------------------------------------------------- LOGOUT
 
 @app.route('/user/logout')
@@ -69,7 +72,6 @@ def reg_user():
     logged_user_id = User.save(data)
     # store user id into session
     session['user_id'] = logged_user_id
-    session['user_fname'] = request.form['first_name']
     
     return redirect("/dashboard")
 
