@@ -11,8 +11,8 @@ class Message:
         self.sender_id = data['sender_id']
         self.recipient_id = data['recipient_id']
         self.message = data['message']
-        self.updated_at = data['updated_at']
         self.created_at = data['created_at']
+        self.updated_at = data['updated_at']
     
     # ------------------------------------------------ SAVE NEW Message
     @classmethod
@@ -41,8 +41,9 @@ class Message:
                 WHERE id = %(id)s; 
                 """
         results = connectToMySQL(DB).query_db(query, data)
-        
-        return cls(results)
+        message = cls(results[0])
+        print(message.recipient_id)
+        return message
 
 
     # ------------------------------------------------ GET ALL messages for user

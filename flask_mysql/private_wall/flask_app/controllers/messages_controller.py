@@ -28,10 +28,10 @@ def delete_message(id):
     data = {
         'id': id
     }
-    # message_to_delete = Message.get_by_id(data)
-    # if session['user_id'] != message_to_delete['recipient_id']:
-    #     ip = request.environ.get('HTTP_X_REAL_IP', request.remote_addr)  
-    #     return render_template('warn.html', message = message_to_delete, ip=ip)
+    message_to_delete = Message.get_by_id(data)
+    if session['user_id'] != message_to_delete.recipient_id:
+        ip = request.environ.get('HTTP_X_REAL_IP', request.remote_addr)  
+        return render_template('warn.html', message = message_to_delete, ip=ip)
     Message.destroy(data)
     return redirect('/dashboard')
 
