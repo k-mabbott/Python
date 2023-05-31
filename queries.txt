@@ -1,33 +1,35 @@
-SELECT r.*, u.first_name FROM recipes r JOIN users u ON r.user_id = u.id;
-
-SELECT * FROM recipes;
-
-INSERT INTO recipes (user_id, name, description, instructions, date_cooked, under)
-VALUES (1,'Test', 'This is a test', 'None needed this is just a test', 2023-05-14, 'yes' );
-
-SELECT r.*, u.first_name FROM recipes r 
-JOIN users u ON r.user_id = u.id;
-
-
-SELECT r.*, u.first_name FROM recipes r 
-JOIN users u ON r.user_id = u.id
-WHERE r.id = 1;
-
-SELECT * FROM friendships f 
-JOIN users u ON u.id = f.user_id 
-JOIN users ON friend_id = users.id;
-
-SELECT * FROM friendships f 
-JOIN users u ON u.id = f.user_id 
-JOIN friendships ON friend_id = users.id;
-
-SELECT * FROM friendships;
-
-SELECT a.first_name as first_name1, b.first_name as first_name2
-FROM users a, users b WHERE a.id != b.id
-ORDER BY a.first_name, b.first_name
-;
+VGyCK6Zt
 
 
 
+SELECT * FROM messages;
+SELECT * FROM users WHERE id = 2 ORDER BY users.first_name;
 
+SELECT *, COUNT() as num FROM messages m 
+LEFT JOIN users as sb ON m.sender_id = sb.id
+LEFT JOIN users as r ON m.recipient_id = r.id
+WHERE r.id = 2
+GROUP BY(m.id);
+
+SELECT COUNT(*) as num FROM messages m 
+WHERE m.sender_id = 1 GROUP BY (m.sender_id); 
+
+
+SELECT * FROM messages;
+SELECT * FROM users WHERE id = 2 ORDER BY users.first_name;
+
+SELECT *, COUNT() as num FROM messages m 
+LEFT JOIN users as sb ON m.sender_id = sb.id
+LEFT JOIN users as r ON m.recipient_id = r.id
+WHERE r.id = 2
+GROUP BY(m.id);
+
+SELECT COUNT(*) as num FROM messages m 
+WHERE m.sender_id = 1 GROUP BY (m.sender_id);
+
+
+SELECT *, COUNT() as num FROM shows m 
+LEFT JOIN users as sb ON m.sender_id = sb.id
+LEFT JOIN users as r ON m.recipient_id = r.id
+WHERE r.id = 2
+GROUP BY(m.id);
