@@ -1,0 +1,115 @@
+@app.route('/api/parties/create', methods=['POST'])
+def api_create_party():
+    if 'user_id' not in session:
+        return redirect('/')
+    # if not Party.valid(request.form):
+    #     return redirect('/parties/new')
+    errors = Party.api_valid(request.form)
+
+    if len(errors) >= 1:
+        return {'message':'validation fail', 'errors':errors}
+    print(request.form)
+    party_data = {
+        **request.form,
+        'user_id': session['user_id']
+    }
+    id = Party.create(party_data)
+    logged_user = User.get_by_id({'id':session['user_id']})
+
+    res = {
+        **party_data,
+        'id': id,
+        'user_name': f"{logged_user.first_name} {logged_user.last_name}"
+    }
+    return res
+
+
+
+    @staticmethod
+    def api_valid(form_data):
+        errors = []
+        if len(form_data['what']) < 1:
+            errors.append('what required')
+            # errors.append({'category':'what','error':'what required'})
+
+        if len(form_data['location']) < 1:
+            errors.append('location required')
+
+        if len(form_data['date']) < 1:
+            errors.append('date required')
+
+        if len(form_data['description']) < 1:
+            errors.append('description required')
+
+        if 'all_ages' not in form_data:
+            errors.append('all ages required')
+
+        return errors
+
+
+// alert('Linked')
+const form = document.querySelector('#newParty')
+const tableBody = document.querySelector('#tbody')
+const errorField = document.querySelector('#error_display')
+
+function addParty(event) {
+    event.preventDefault()
+    console.log('form submitted')
+
+    let formData = new FormData(form)
+    fetch('/api/parties/create', { method: 'POST', body: formData })
+        .then(res => res.json())
+        .then(data => {
+            errorField.innerHTML = "";
+            if (data.hasOwnProperty('errors')) {
+                console.log('error exist', data)
+                for (let error of data.errors) {
+                    errorField.innerHTML += `<p class='text-danger'>${error}</p>`
+                }
+            } else {
+                console.log(data)
+                tableBody.innerHTML += `
+                <tr>
+                <td>${data.what}</td>
+                <td>${data.location}</td>
+                <td>${data.date}</td>
+                <td>${data.all_ages == 1 ? 'True' : 'False'}</td>
+                <td>${data.user_name}</td>
+                <td>
+                    <a href="/parties/${data.id}/view">View</a>
+                    <a href="/parties/${data.id}/edit">Edit</a>
+                    <a href="/parties/${data.id}/delete">Delete</a>
+                </td>
+                </tr>
+                `
+                form.what.value = ""
+                form.location.value = ""
+                form.date.value = ""
+                form.description.value = ""
+                form.true.checked = false
+                form.false.checked = false
+            }
+        })
+        .catch(err => console.log('error', err))
+}
+
+
+        <form onsubmit="addParty(event)" id="newParty">
+            <div id="error_display"></div>
+            <label for="what">What</label>
+            <input type="text" name="what" id="what">
+            <label for="location">Where</label>
+            <input type="text" name="location" id="location">
+            <label for="date">Date</label>
+            <input type="date" name="date" id="date">
+            <div>
+                <p>All Ages</p>
+                <label for="true">True</label>
+                <input type="radio" name="all_ages" id="true" value="1">
+                <label for="false">False</label>
+                <input type="radio" name="all_ages" id="false" value="0">
+            </div>
+            <label for="description">Description</label>
+            <textarea name="description" id="description" cols="30" rows="10"></textarea>
+            <button class="btn btn-primary">Submit</button>
+        </form>
