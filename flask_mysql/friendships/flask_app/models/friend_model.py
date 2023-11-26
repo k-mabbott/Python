@@ -76,7 +76,10 @@ class Friend:
             # print('Friend Type ===', type(friendship.friend_id), '\n\nData Type ==', type(data['user_id']))
             # print('is user = user', (data['user_id'] == friendship.user_id))
             if (int(data['friend_id']) == friendship.friend_id) and (int(data['user_id']) == friendship.user_id):
-                print('HIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII')
+   
+#testing 12 testing 12
+
+print('HIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII')
                 is_valid = False
                 flash('Friendship Already Exists!', 'friendship')
                 break
